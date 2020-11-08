@@ -7,6 +7,27 @@ from sklearn.decomposition import PCA
 from sklearn.metrics import confusion_matrix
 
 
+def plot_two_features(feature_1, feature_2, title='Plot of two features'):
+    plt.plot(feature_1, feature_2, '.', markersize=1)
+    plt.xlabel('Feature 1')
+    plt.ylabel('Feature 2')
+    plt.title(title)
+    plt.grid()
+    plt.show()
+
+
+def plot_three_features(feature_1, feature_2, feature_3, title='Plot of three features'):
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+    ax.plot(feature_1, feature_2, feature_3, '.', markersize=1)
+    ax.set_xlabel('Feature 1')
+    ax.set_ylabel('Feature 2')
+    ax.set_zlabel('Feature 3')
+    plt.title(title)
+    plt.grid()
+    plt.show()
+
+
 def plot_error(iteration_distances):
     plt.plot(list(range(0, len(iteration_distances))), iteration_distances)
     plt.ylabel('Sum of distances from each sample to its nearest cluster')
@@ -22,26 +43,6 @@ def plot_k_error(k_error):
     plt.xlabel('K')
     plt.title('Sum of distances for each \'K\' value')
     plt.xticks(list(range(2, len(k_error) + 2)))
-    plt.grid()
-    plt.show()
-
-
-def plot_c_error(c_error):
-    plt.plot(list(range(2, len(c_error) + 2)), c_error, 'o-')
-    plt.ylabel('Sum of distances from each sample to its nearest cluster')
-    plt.xlabel('C')
-    plt.title('Sum of distances for each \'C\' value')
-    plt.xticks(list(range(2, len(c_error) + 2)))
-    plt.grid()
-    plt.show()
-
-
-def plot_performance_index(performance_index):
-    plt.plot(list(range(2, len(performance_index) + 2)), performance_index, 'o-')
-    plt.ylabel('Performance Index value')
-    plt.xlabel('Number of clusters (C Value)')
-    plt.title('Performance Index for optimal clusters')
-    plt.xticks(list(range(2, len(performance_index) + 2)))
     plt.grid()
     plt.show()
 
