@@ -52,6 +52,48 @@ def test_pca(datasets):
     print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s "
           f"{(math.trunc((toc - tic) * 1000) % 1000)}ms")
 
+def test_pca_sklearn(datasets):
+    print("Applying PCA with Sklearn to Numerical Dataset: Pen-based...")
+    tic = time.time()
+    pca_ipca.pca_sklearn(datasets[0], n_components=2)
+
+    toc = time.time()
+    print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s "
+          f"{(math.trunc((toc - tic) * 1000) % 1000)}ms")
+
+    print("Applying PCA with Sklearn to Numerical Dataset: Kropt...")
+    tic = time.time()
+    pca_ipca.pca_sklearn(datasets[1], n_components=2)
+
+    toc = time.time()
+    print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s "
+          f"{(math.trunc((toc - tic) * 1000) % 1000)}ms")
+
+    print("Applying PCA with Sklearn to Numerical Dataset: Hypothyroid...")
+    tic = time.time()
+    pca_ipca.pca_sklearn(datasets[2], n_components=2)
+
+def test_ipca(datasets):
+    print("Applying IPCA to Numerical Dataset: Pen-based...")
+    tic = time.time()
+    pca_ipca.ipca(datasets[0], n_components=2)
+
+    toc = time.time()
+    print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s "
+          f"{(math.trunc((toc - tic) * 1000) % 1000)}ms")
+
+    print("Applying IPCA to Numerical Dataset: Kropt...")
+    tic = time.time()
+    pca_ipca.ipca(datasets[1], n_components=2)
+
+    toc = time.time()
+    print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s "
+          f"{(math.trunc((toc - tic) * 1000) % 1000)}ms")
+
+    print("Applying IPCA to Numerical Dataset: Hypothyroid...")
+    tic = time.time()
+    pca_ipca.ipca(datasets[2], n_components=2)
+
 
 if __name__ == '__main__':
     datasets_preprocessed = dr.get_datasets()
@@ -62,3 +104,5 @@ if __name__ == '__main__':
     plot_original_dataset(datasets_preprocessed[2])
 
     test_pca(datasets_preprocessed)
+    test_pca_sklearn(datasets_preprocessed)
+    test_ipca(datasets_preprocessed)
