@@ -1,9 +1,12 @@
+import math
+import time
+
 from arffdatasetreader import dataset_reader as dr
-from clusteringgenerators import kmeans
 from dimensionalityreductors import pca
 from utils import plotter
-import time
-import math
+from clusteringgenerators import kmeans
+from validators.metrics import compute_pca_and_tsne_on_reduced_dataset, compute_pca_and_tsne
+
 
 
 def plot_original_dataset(dataset):
@@ -20,6 +23,7 @@ def test_pca(datasets):
                                        print_cov_matrix=True,
                                        print_eigen=True,
                                        print_selected_eigen=True,
+                                       print_variance_explained=True,
                                        plot_transformed_data=True,
                                        plot_original_data=True)
     toc = time.time()
@@ -33,6 +37,7 @@ def test_pca(datasets):
                                        print_cov_matrix=True,
                                        print_eigen=True,
                                        print_selected_eigen=True,
+                                       print_variance_explained=True,
                                        plot_transformed_data=True,
                                        plot_original_data=True)
     toc = time.time()
@@ -46,6 +51,7 @@ def test_pca(datasets):
                                        print_cov_matrix=True,
                                        print_eigen=True,
                                        print_selected_eigen=True,
+                                       print_variance_explained=True,
                                        plot_transformed_data=True,
                                        plot_original_data=True)
     toc = time.time()
@@ -57,8 +63,16 @@ if __name__ == '__main__':
     datasets_preprocessed = dr.get_datasets()
     targets_labels = dr.get_datasets_target()
 
-    plot_original_dataset(datasets_preprocessed[0])
-    plot_original_dataset(datasets_preprocessed[1])
-    plot_original_dataset(datasets_preprocessed[2])
+    # plot_original_dataset(datasets_preprocessed[0])
+    # plot_original_dataset(datasets_preprocessed[1])
+    # plot_original_dataset(datasets_preprocessed[2])
 
-    test_pca(datasets_preprocessed)
+    # test_pca(datasets_preprocessed)
+
+    # kmeans.get_best_k_for_all_datasets_reduced(datasets_preprocessed)
+    compute_pca_and_tsne_on_reduced_dataset(datasets_preprocessed, targets_labels, plot_pca_2D=True, plot_tsne_2D=True,
+                                          plot_pca_3D=True, plot_tsne_3D=True)
+    compute_pca_and_tsne(datasets_preprocessed, plot_pca_2D=True, plot_tsne_2D=True, plot_pca_3D=True, plot_tsne_3D=True)
+
+
+

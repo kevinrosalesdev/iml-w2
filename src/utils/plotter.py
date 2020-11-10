@@ -3,29 +3,10 @@ import matplotlib.pyplot as plt
 import seaborn as sn
 
 from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
+
 # External Metric
 from sklearn.metrics import confusion_matrix
-
-
-def plot_two_features(feature_1, feature_2, title='Plot of two features'):
-    plt.plot(feature_1, feature_2, '.', markersize=1)
-    plt.xlabel('Feature 1')
-    plt.ylabel('Feature 2')
-    plt.title(title)
-    plt.grid()
-    plt.show()
-
-
-def plot_three_features(feature_1, feature_2, feature_3, title='Plot of three features'):
-    fig = plt.figure()
-    ax = fig.gca(projection='3d')
-    ax.plot(feature_1, feature_2, feature_3, '.', markersize=1)
-    ax.set_xlabel('Feature 1')
-    ax.set_ylabel('Feature 2')
-    ax.set_zlabel('Feature 3')
-    plt.title(title)
-    plt.grid()
-    plt.show()
 
 
 def plot_error(iteration_distances):
@@ -118,3 +99,36 @@ def plot_pca_2D(dataset, labels, plot_title=''):
     plt.legend(title='Cluster', loc='best', prop={'size': 6})
     plt.title(plot_title)
     plt.show()
+
+
+def plot_tsne_2D(dataset, labels, plot_title=''):
+    tsne = TSNE(n_components=2, verbose=1, perplexity=30, n_iter=300, random_state=0)
+
+    df_2D = pd.DataFrame(tsne.fit_transform(dataset), columns=['T-SNE1', 'T-SNE2'])
+    df_2D['Cluster'] = labels
+    sn.lmplot(x="T-SNE1", y="T-SNE2", data=df_2D, fit_reg=False, hue='Cluster', legend=False, scatter_kws={"s": 10})
+    plt.legend(title='Cluster', loc='best', prop={'size': 6})
+    plt.title(plot_title)
+    plt.show()
+
+
+def plot_two_features(feature_1, feature_2, title='Plot of two features'):
+    plt.plot(feature_1, feature_2, '.', markersize=1)
+    plt.xlabel('Feature 1')
+    plt.ylabel('Feature 2')
+    plt.title(title)
+    plt.grid()
+    plt.show()
+
+
+def plot_three_features(feature_1, feature_2, feature_3, title='Plot of three features'):
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+    ax.plot(feature_1, feature_2, feature_3, '.', markersize=1)
+    ax.set_xlabel('Feature 1')
+    ax.set_ylabel('Feature 2')
+    ax.set_zlabel('Feature 3')
+    plt.title(title)
+    plt.grid()
+    plt.show()
+
