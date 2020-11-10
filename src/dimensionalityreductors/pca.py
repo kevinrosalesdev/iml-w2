@@ -1,5 +1,7 @@
 import numpy as np
 from utils import plotter
+import math
+import time
 
 
 def apply_dimensionality_reduction(dataset, num_components=None,
@@ -59,3 +61,47 @@ def apply_dimensionality_reduction(dataset, num_components=None,
         plotter.plot_two_features(original_data[:, 0], original_data[:, 1])
 
     return [transformed_data, original_data]
+
+
+def test_pca(datasets):
+    print("Applying PCA to Numerical Dataset: Pen-based...")
+    tic = time.time()
+    apply_dimensionality_reduction(datasets[0],
+                                       num_components=2,
+                                       print_cov_matrix=True,
+                                       print_eigen=True,
+                                       print_selected_eigen=True,
+                                       print_variance_explained=True,
+                                       plot_transformed_data=True,
+                                       plot_original_data=True)
+    toc = time.time()
+    print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s "
+          f"{(math.trunc((toc - tic) * 1000) % 1000)}ms")
+
+    print("Applying PCA to Numerical Dataset: Kropt...")
+    tic = time.time()
+    apply_dimensionality_reduction(datasets[1],
+                                       num_components=2,
+                                       print_cov_matrix=True,
+                                       print_eigen=True,
+                                       print_selected_eigen=True,
+                                       print_variance_explained=True,
+                                       plot_transformed_data=True,
+                                       plot_original_data=True)
+    toc = time.time()
+    print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s "
+          f"{(math.trunc((toc - tic) * 1000) % 1000)}ms")
+
+    print("Applying PCA to Numerical Dataset: Hypothyroid...")
+    tic = time.time()
+    apply_dimensionality_reduction(datasets[2],
+                                       num_components=2,
+                                       print_cov_matrix=True,
+                                       print_eigen=True,
+                                       print_selected_eigen=True,
+                                       print_variance_explained=True,
+                                       plot_transformed_data=True,
+                                       plot_original_data=True)
+    toc = time.time()
+    print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s "
+          f"{(math.trunc((toc - tic) * 1000) % 1000)}ms")

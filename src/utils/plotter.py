@@ -132,3 +132,8 @@ def plot_three_features(feature_1, feature_2, feature_3, title='Plot of three fe
     plt.grid()
     plt.show()
 
+
+def plot_original_dataset(dataset):
+    np_dataset = dataset.to_numpy()
+    plot_two_features(np_dataset[:, 0], np_dataset[:, 1])
+    plot_three_features(np_dataset[:, 0], np_dataset[:, 1], np_dataset[:, 2])
