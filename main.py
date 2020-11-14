@@ -16,9 +16,11 @@ if __name__ == '__main__':
     # pca.test_pca(datasets_preprocessed)
 
     # kmeans.get_best_k_for_all_datasets_reduced(datasets_preprocessed)
-    compute_pca_and_tsne_on_reduced_dataset(datasets_preprocessed, targets_labels, plot_pca_2D=True, plot_tsne_2D=True,
-                                          plot_pca_3D=True, plot_tsne_3D=True)
-    compute_pca_and_tsne(datasets_preprocessed, plot_pca_2D=True, plot_tsne_2D=True, plot_pca_3D=True, plot_tsne_3D=True)
+    compute_pca_and_tsne_on_reduced_dataset(datasets_preprocessed, targets_labels, plot_implemented_pca_2D=True,
+                                            plot_sklearn_pca_2D=True, plot_pca_3D=True, plot_tsne_2D=True,
+                                            plot_tsne_3D=True)
+    compute_pca_and_tsne(datasets_preprocessed, plot_implemented_pca_2D=True, plot_sklearn_pca_2D=True,
+                         plot_pca_3D=True, plot_tsne_2D=True, plot_tsne_3D=True)
 
 
 
