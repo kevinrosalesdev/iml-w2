@@ -7,9 +7,9 @@ from validators.metrics import compute_pca_and_tsne_on_reduced_dataset, compute_
 
 
 def test_and_plot_different_params_tsne(dataset, best_k):
-    perplexity = [5, 10, 20, 30, 40, 50]
-    learning_rate = [50, 100, 200, 250, 500, 1000]
-    n_iter = [300, 500, 750, 1000, 1200]
+    perplexity = [10, 30, 50]
+    learning_rate = [10, 100, 200]
+    n_iter = [300, 1000, 3000]
 
     # reducing dataset dimensionality
     data = pca.apply_dimensionality_reduction(dataset,
@@ -30,8 +30,6 @@ def test_and_plot_different_params_tsne(dataset, best_k):
             for per in perplexity:
                 title = f"N° iter. = {n_it}, Learn. Rate = {lr}, Perp. = {per}"
                 plotter.plot_tsne_2D(data[0], pred_labels, plot_title=title, perplexity=per,
-                                     learning_rate=lr, n_iter=n_it, random_state=0)
-                plotter.plot_tsne_3D(data[0], pred_labels, plot_title=title, perplexity=per,
                                      learning_rate=lr, n_iter=n_it, random_state=0)
     """
     DESCRIPTION OF THE PARA
