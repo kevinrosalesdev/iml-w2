@@ -80,15 +80,15 @@ def plot_pca_and_tsne(datasets, best_k, target_labels=None, plot_implemented_pca
         if plot_tsne_2D:
             tic = time.time()
             plotter.plot_tsne_2D(datasets[index], pred_labels,
-                                 plot_title=f"t-SNE - {dataset_names[index]} - K={best_k[index]}",
-                                 perplexity=30, learning_rate=200, n_iter=300, random_state=0)
+                                 plot_title=f"t-SNE - {dataset_names[index]} - K={best_k[index]}", perplexity=30,
+                                 learning_rate=200, n_iter=1000, random_state=0)
             toc = time.time()
             print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s")
 
         if plot_tsne_3D:
             tic = time.time()
             plotter.plot_tsne_3D(datasets[index], pred_labels,
-                                 plot_title=f"t-SNE - {dataset_names[index]} - K={best_k[index]}",
-                                 perplexity=30, learning_rate=200, n_iter=300, random_state=0)
+                                 plot_title=f"t-SNE - {dataset_names[index]} - K={best_k[index]}", perplexity=30,
+                                 learning_rate=200, n_iter=1000, random_state=0)
             toc = time.time()
             print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s")

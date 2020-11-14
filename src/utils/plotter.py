@@ -161,9 +161,10 @@ def plot_implemented_pca_3D(dataset, labels, plot_title=''):
     plt.show()
 
 
-def plot_tsne_2D(dataset, labels, plot_title='', perplexity=30, learning_rate=200, n_iter=300, random_state=0):
+def plot_tsne_2D(dataset, labels, plot_title='', perplexity=30, learning_rate=200, n_iter=1000, random_state=0):
     tsne = TSNE(n_components=2, verbose=1, perplexity=perplexity,
-                learning_rate=learning_rate, n_iter=n_iter, random_state=random_state)
+                learning_rate=learning_rate, n_iter=n_iter,
+                random_state=random_state)
 
     df_2D = pd.DataFrame(tsne.fit_transform(dataset), columns=['T-SNE1', 'T-SNE2'])
     df_2D['Cluster'] = labels
@@ -173,9 +174,10 @@ def plot_tsne_2D(dataset, labels, plot_title='', perplexity=30, learning_rate=20
     plt.show()
 
 
-def plot_tsne_3D(dataset, labels, plot_title='', perplexity=30, learning_rate=200, n_iter=300, random_state=0):
+def plot_tsne_3D(dataset, labels, plot_title='', perplexity=30, learning_rate=200, n_iter=1000, random_state=0):
     tsne = TSNE(n_components=3, verbose=1, perplexity=perplexity,
-                learning_rate=learning_rate, n_iter=n_iter, random_state=random_state)
+                learning_rate=learning_rate, n_iter=n_iter,
+                random_state=random_state)
 
     df_3D = pd.DataFrame(tsne.fit_transform(dataset), columns=['TSNE%i' % i for i in range(3)])
     df_3D['Cluster'] = labels
