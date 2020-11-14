@@ -93,13 +93,28 @@ def modify_labels_length_drop_zeros(conf_matrix, list_to_change, list_target, ha
     return conf_matrix_df
 
 
-def plot_pca_2D(dataset, labels, plot_title=''):
+def plot_sklearn_pca_2D(dataset, labels, plot_title=''):
     pca = PCA(n_components=2)
     df_2D = pd.DataFrame(pca.fit_transform(dataset), columns=['PCA1', 'PCA2'])
     df_2D['Cluster'] = labels
-    sn.lmplot(x="PCA1", y="PCA2", data=df_2D, fit_reg=False, hue='Cluster', legend=False, scatter_kws={"s": 10})
+    sn.lmplot(x="PCA1", y="PCA2", data=df_2D, fit_reg=False, hue='Cluster', legend=False, scatter_kws={"s": 1})
     plt.legend(title='Cluster', loc='best', prop={'size': 6})
     plt.title(plot_title)
+    plt.show()
+
+
+def plot_sklearn_pca_3D(dataset, labels, plot_title=''):
+    pca = PCA(n_components=3)
+    df_3D = pd.DataFrame(pca.fit_transform(dataset), columns=['PCA%i' % i for i in range(3)])
+    df_3D['Cluster'] = labels
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    scatter = ax.scatter(df_3D['PCA0'], df_3D['PCA1'], df_3D['PCA2'], c=df_3D.Cluster, s=1)
+    plt.legend(*scatter.legend_elements(), title='Cluster', loc='upper left', prop={'size': 6})
+    ax.set_xlabel("PC1")
+    ax.set_ylabel("PC2")
+    ax.set_zlabel("PC3")
+    ax.set_title(plot_title)
     plt.show()
 
 
@@ -116,20 +131,62 @@ def plot_implemented_pca_2D(dataset, labels, plot_title=''):
                                               )
     df_2D = pd.DataFrame(data[0], columns=['PCA1', 'PCA2'])
     df_2D['Cluster'] = labels
-    sn.lmplot(x="PCA1", y="PCA2", data=df_2D, fit_reg=False, hue='Cluster', legend=False, scatter_kws={"s": 10})
+    sn.lmplot(x="PCA1", y="PCA2", data=df_2D, fit_reg=False, hue='Cluster', legend=False, scatter_kws={"s": 1})
     plt.legend(title='Cluster', loc='best', prop={'size': 6})
     plt.title(plot_title)
     plt.show()
 
 
-def plot_tsne_2D(dataset, labels, plot_title=''):
-    tsne = TSNE(n_components=2, verbose=1, perplexity=30, n_iter=300, random_state=0)
+def plot_implemented_pca_3D(dataset, labels, plot_title=''):
+    data = pca.apply_dimensionality_reduction(dataset,
+                                              num_components=3,
+                                              print_cov_matrix=True,
+                                              print_eigen=True,
+                                              print_variance_explained=True,
+                                              print_selected_eigen=True,
+                                              plot_transformed_data=False,
+                                              plot_original_data=False,
+                                              )
+
+    df_3D = pd.DataFrame(data[0], columns=['PCA%i' % i for i in range(3)])
+    df_3D['Cluster'] = labels
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    scatter = ax.scatter(df_3D['PCA0'], df_3D['PCA1'], df_3D['PCA2'], c=df_3D.Cluster, s=1)
+    plt.legend(*scatter.legend_elements(), title='Cluster', loc='upper left', prop={'size': 6})
+    ax.set_xlabel("PC1")
+    ax.set_ylabel("PC2")
+    ax.set_zlabel("PC3")
+    ax.set_title(plot_title)
+    plt.show()
+
+
+def plot_tsne_2D(dataset, labels, plot_title='', perplexity=30, learning_rate=200, n_iter=300, random_state=0):
+    tsne = TSNE(n_components=2, verbose=1, perplexity=perplexity,
+                learning_rate=learning_rate, n_iter=n_iter, random_state=random_state)
 
     df_2D = pd.DataFrame(tsne.fit_transform(dataset), columns=['T-SNE1', 'T-SNE2'])
     df_2D['Cluster'] = labels
-    sn.lmplot(x="T-SNE1", y="T-SNE2", data=df_2D, fit_reg=False, hue='Cluster', legend=False, scatter_kws={"s": 10})
+    sn.lmplot(x="T-SNE1", y="T-SNE2", data=df_2D, fit_reg=False, hue='Cluster', legend=False, scatter_kws={"s": 1})
     plt.legend(title='Cluster', loc='best', prop={'size': 6})
     plt.title(plot_title)
+    plt.show()
+
+
+def plot_tsne_3D(dataset, labels, plot_title='', perplexity=30, learning_rate=200, n_iter=300, random_state=0):
+    tsne = TSNE(n_components=3, verbose=1, perplexity=perplexity,
+                learning_rate=learning_rate, n_iter=n_iter, random_state=random_state)
+
+    df_3D = pd.DataFrame(tsne.fit_transform(dataset), columns=['TSNE%i' % i for i in range(3)])
+    df_3D['Cluster'] = labels
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    scatter = ax.scatter(df_3D['TSNE0'], df_3D['TSNE1'], df_3D['TSNE2'], c=df_3D.Cluster, s=1)
+    plt.legend(*scatter.legend_elements(), title='Cluster', loc='upper left', prop={'size': 6})
+    ax.set_xlabel("TSNE1")
+    ax.set_ylabel("TSNE2")
+    ax.set_zlabel("TSNE3")
+    ax.set_title(plot_title)
     plt.show()
 
 
