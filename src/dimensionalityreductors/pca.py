@@ -9,7 +9,10 @@ def apply_dimensionality_reduction(dataset, num_components=None,
                                    print_variance_explained=False,
                                    plot_transformed_data=False, plot_original_data=False):
 
-    np_dataset = dataset.to_numpy()
+    if type(dataset) != np.ndarray:
+        np_dataset = dataset.to_numpy()
+    else:
+        np_dataset = dataset
     d_mean_vector = np.mean(np_dataset, axis=0)
     np_dataset_mean = np.subtract(np_dataset, d_mean_vector)
     cov_matrix = np.cov(np_dataset_mean.T)
@@ -37,7 +40,7 @@ def apply_dimensionality_reduction(dataset, num_components=None,
     if num_components is None:
         num_components = np.where(eigenvalues > 1.)[0].shape[0]
         if num_components < 2:
-            print("[WARNING] Not enough eigenvalues are > 1., getting num of components where the cumulative "
+            print("[WARNING] Not enough eigenvalues are > 1, getting num of components where the cumulative"
                   "variance explained is 95%")
             num_components = np.where(cumulative_variance_explained < 95)[0].shape[0]
             print("num_components cumulative=", str(num_components))

@@ -10,8 +10,9 @@ from utils import plotter
 from dimensionalityreductors import pca
 
 
-def compute_pca_and_tsne_on_reduced_dataset(datasets, target_labels=None, plot_pca_2D=False, plot_tsne_2D=False,
-                                            plot_pca_3D=False, plot_tsne_3D=False):
+def compute_pca_and_tsne_on_reduced_dataset(datasets, target_labels=None, plot_implemented_pca_2D=False,
+                                            plot_sklearn_pca_2D=False, plot_pca_3D=False, plot_tsne_2D=False,
+                                            plot_tsne_3D=False):
     datasets_reduced = []
     for dataset in datasets:
         data = pca.apply_dimensionality_reduction(dataset,
@@ -25,16 +26,19 @@ def compute_pca_and_tsne_on_reduced_dataset(datasets, target_labels=None, plot_p
                                                   )
         datasets_reduced.append(data[0])
     best_k_reduced = [9, 3, 11]
-    plot_pca_and_tsne(datasets_reduced, best_k_reduced, target_labels, plot_pca_2D, plot_tsne_2D, plot_pca_3D, plot_tsne_3D)
+    plot_pca_and_tsne(datasets_reduced, best_k_reduced, target_labels, plot_implemented_pca_2D, plot_sklearn_pca_2D,
+                      plot_pca_3D, plot_tsne_2D, plot_tsne_3D)
 
 
-def compute_pca_and_tsne(datasets, plot_pca_2D=False, plot_tsne_2D=False, plot_pca_3D=False, plot_tsne_3D=False):
+def compute_pca_and_tsne(datasets, plot_implemented_pca_2D=False, plot_sklearn_pca_2D=False, plot_pca_3D=False,
+                         plot_tsne_2D=False, plot_tsne_3D=False):
     best_k_kmeans_first_assignment = [9, 19, 6]
-    plot_pca_and_tsne(datasets, best_k_kmeans_first_assignment, None, plot_pca_2D, plot_tsne_2D, plot_pca_3D, plot_tsne_3D)
+    plot_pca_and_tsne(datasets, best_k_kmeans_first_assignment, None, plot_implemented_pca_2D, plot_sklearn_pca_2D,
+                      plot_pca_3D, plot_tsne_2D, plot_tsne_3D)
 
 
-def plot_pca_and_tsne(datasets, best_k, target_labels=None, plot_pca_2D=False, plot_tsne_2D=False,
-                      plot_pca_3D=False, plot_tsne_3D=False):
+def plot_pca_and_tsne(datasets, best_k, target_labels=None, plot_implemented_pca_2D=False, plot_sklean_pca_2D=False,
+                      plot_pca_3D=False, plot_tsne_2D=False, plot_tsne_3D=False):
     dataset_names = ["Pen-based (num)", "Kropt (cat)", "Hypothyroid (mxd)"]
     for index in range(0, len(best_k)):
         tic = time.time()
@@ -53,9 +57,12 @@ def plot_pca_and_tsne(datasets, best_k, target_labels=None, plot_pca_2D=False, p
             plotter.plot_confusion_matrix(target_labels[index], pred_labels,
                                       plot_title=f"{dataset_names[index]} - K={best_k[index]}",
                                       is_real_k=False)
-        if plot_pca_2D:
+        if plot_implemented_pca_2D:
+            plotter.plot_implemented_pca_2D(datasets[index], pred_labels,
+                                    plot_title=f"Implemented PCA - {dataset_names[index]} - K={best_k[index]}")
+        if plot_sklean_pca_2D:
             plotter.plot_pca_2D(datasets[index], pred_labels,
-                            plot_title=f"{dataset_names[index]} - K={best_k[index]}")
+                            plot_title=f"SKLearn PCA - {dataset_names[index]} - K={best_k[index]}")
         if plot_tsne_2D:
             tic = time.time()
             plotter.plot_tsne_2D(datasets[index], pred_labels,

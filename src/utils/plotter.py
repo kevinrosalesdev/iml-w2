@@ -4,6 +4,8 @@ import seaborn as sn
 
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
+from dimensionalityreductors import pca
+
 
 # External Metric
 from sklearn.metrics import confusion_matrix
@@ -94,6 +96,25 @@ def modify_labels_length_drop_zeros(conf_matrix, list_to_change, list_target, ha
 def plot_pca_2D(dataset, labels, plot_title=''):
     pca = PCA(n_components=2)
     df_2D = pd.DataFrame(pca.fit_transform(dataset), columns=['PCA1', 'PCA2'])
+    df_2D['Cluster'] = labels
+    sn.lmplot(x="PCA1", y="PCA2", data=df_2D, fit_reg=False, hue='Cluster', legend=False, scatter_kws={"s": 10})
+    plt.legend(title='Cluster', loc='best', prop={'size': 6})
+    plt.title(plot_title)
+    plt.show()
+
+
+def plot_implemented_pca_2D(dataset, labels, plot_title=''):
+
+    data = pca.apply_dimensionality_reduction(dataset,
+                                              num_components=2,
+                                              print_cov_matrix=True,
+                                              print_eigen=True,
+                                              print_variance_explained=True,
+                                              print_selected_eigen=True,
+                                              plot_transformed_data=False,
+                                              plot_original_data=False,
+                                              )
+    df_2D = pd.DataFrame(data[0], columns=['PCA1', 'PCA2'])
     df_2D['Cluster'] = labels
     sn.lmplot(x="PCA1", y="PCA2", data=df_2D, fit_reg=False, hue='Cluster', legend=False, scatter_kws={"s": 10})
     plt.legend(title='Cluster', loc='best', prop={'size': 6})
