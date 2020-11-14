@@ -3,15 +3,10 @@ from dimensionalityreductors import pca
 from clusteringgenerators import kmeans
 from utils import plotter
 import time
+from dimensionalityreductors import pca_ipca
+import math
 from validators.metrics import compute_pca_and_tsne_on_reduced_dataset, compute_pca_and_tsne
 
-
-
-def test_and_plot_different_params_tsne():
-    #TODO
-    perplexity = [5, 10, 20, 30, 40, 50]
-    plotter.plot_tsne_3D(datasets_preprocessed[0], targets_labels[0], plot_title="",
-                                 perplexity=30, learning_rate=200, n_iter=300, random_state=0)
 
 def test_pca_sklearn(datasets):
     print("Applying PCA with Sklearn to Numerical Dataset: Pen-based...")
@@ -34,6 +29,7 @@ def test_pca_sklearn(datasets):
     tic = time.time()
     pca_ipca.pca_sklearn(datasets[2], n_components=2)
 
+
 def test_ipca(datasets):
     print("Applying IPCA to Numerical Dataset: Pen-based...")
     tic = time.time()
@@ -54,6 +50,13 @@ def test_ipca(datasets):
     print("Applying IPCA to Numerical Dataset: Hypothyroid...")
     tic = time.time()
     pca_ipca.ipca(datasets[2], n_components=2)
+
+
+def test_and_plot_different_params_tsne():
+    #TODO
+    perplexity = [5, 10, 20, 30, 40, 50]
+    plotter.plot_tsne_3D(datasets_preprocessed[0], targets_labels[0], plot_title="",
+                                 perplexity=30, learning_rate=200, n_iter=300, random_state=0)
 
 
 if __name__ == '__main__':
