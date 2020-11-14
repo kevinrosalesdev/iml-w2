@@ -171,6 +171,9 @@ def plot_tsne_2D(dataset, labels, plot_title='', perplexity=30, learning_rate=20
     sn.lmplot(x="T-SNE1", y="T-SNE2", data=df_2D, fit_reg=False, hue='Cluster', legend=False, scatter_kws={"s": 1})
     plt.legend(title='Cluster', loc='best', prop={'size': 6})
     plt.title(plot_title)
+    #TODO After usage --> Delete these lines
+    # plt.tight_layout()
+    # plt.savefig(plot_title.replace(" ", "") + '.png')
     plt.show()
 
 

@@ -8,8 +8,8 @@ from validators.metrics import compute_pca_and_tsne_on_reduced_dataset, compute_
 
 def test_and_plot_different_params_tsne(dataset, best_k):
     perplexity = [10, 30, 50]
-    learning_rate = [10, 100, 200]
-    n_iter = [300, 1000, 3000]
+    learning_rate = [100, 200, 400]
+    n_iter = [1000, 3000, 5000]
 
     # reducing dataset dimensionality
     data = pca.apply_dimensionality_reduction(dataset,
