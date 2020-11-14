@@ -2,6 +2,7 @@ from arffdatasetreader import dataset_reader as dr
 from dimensionalityreductors import pca
 from clusteringgenerators import kmeans
 from utils import plotter
+import time
 from validators.metrics import compute_pca_and_tsne_on_reduced_dataset, compute_pca_and_tsne
 
 
@@ -11,33 +12,6 @@ def test_and_plot_different_params_tsne():
     perplexity = [5, 10, 20, 30, 40, 50]
     plotter.plot_tsne_3D(datasets_preprocessed[0], targets_labels[0], plot_title="",
                                  perplexity=30, learning_rate=200, n_iter=300, random_state=0)
-
-
-    print("Applying PCA to Numerical Dataset: Kropt...")
-    tic = time.time()
-    pca.apply_dimensionality_reduction(datasets[1],
-                                       num_components=2,
-                                       print_cov_matrix=True,
-                                       print_eigen=True,
-                                       print_selected_eigen=True,
-                                       plot_transformed_data=True,
-                                       plot_original_data=True)
-    toc = time.time()
-    print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s "
-          f"{(math.trunc((toc - tic) * 1000) % 1000)}ms")
-
-    print("Applying PCA to Numerical Dataset: Hypothyroid...")
-    tic = time.time()
-    pca.apply_dimensionality_reduction(datasets[2],
-                                       num_components=2,
-                                       print_cov_matrix=True,
-                                       print_eigen=True,
-                                       print_selected_eigen=True,
-                                       plot_transformed_data=True,
-                                       plot_original_data=True)
-    toc = time.time()
-    print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s "
-          f"{(math.trunc((toc - tic) * 1000) % 1000)}ms")
 
 def test_pca_sklearn(datasets):
     print("Applying PCA with Sklearn to Numerical Dataset: Pen-based...")
