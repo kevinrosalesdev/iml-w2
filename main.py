@@ -7,9 +7,9 @@ from validators.metrics import compute_pca_and_tsne_on_reduced_dataset, compute_
 
 
 def test_and_plot_different_params_tsne(dataset, best_k):
-    perplexity = [30]
-    learning_rate = [10, 1000]
-    n_iter = [1000]
+    perplexity = [10, 30, 50]
+    learning_rate = [10, 200, 1000]
+    n_iter = [1000, 3000, 5000]
 
     # reducing dataset dimensionality
     data = pca.apply_dimensionality_reduction(dataset,
@@ -84,15 +84,21 @@ if __name__ == '__main__':
 
     # kmeans.get_best_k_for_all_datasets_reduced(datasets_preprocessed)
 
+    perplexity = [30, 50, 50]
+    learning_rate = [200, 200, 200]
+    n_iter = [3000, 3000, 3000]
     """
     compute_pca_and_tsne_on_reduced_dataset(datasets_preprocessed, targets_labels, plot_implemented_pca_2D=True,
                                             plot_implemented_pca_3D=True, plot_sklearn_pca_2D=True, 
-                                            plot_sklearn_pca_3D=True, plot_tsne_2D=True, plot_tsne_3D=True)
+                                            plot_sklearn_pca_3D=True, plot_tsne_2D=True, plot_tsne_3D=True,
+                                            tsne_n_iterations=n_iter, tsne_perplexity=perplexity, tsne_learning_rate=learning_rate)
+    
     
     compute_pca_and_tsne(datasets_preprocessed, plot_implemented_pca_2D=True,
                         plot_implemented_pca_3D=True, plot_sklearn_pca_2D=True,
-                        plot_sklearn_pca_3D=True, plot_tsne_2D=True, plot_tsne_3D=True)
+                        plot_sklearn_pca_3D=True, plot_tsne_2D=True, plot_tsne_3D=True,
+                        tsne_n_iterations=n_iter, tsne_perplexity=perplexity, tsne_learning_rate=learning_rate)
     """
-    #TODO Kevin--> run the funcion below for the three dataset --> N.B. save the picture after each run of a dataset
-    best_k_reduced = [9, 20, 11]
-    test_and_plot_different_params_tsne(datasets_preprocessed[0], best_k_reduced[0])
+
+    #best_k_reduced = [9, 20, 11]
+    #test_and_plot_different_params_tsne(datasets_preprocessed[1], best_k_reduced[1])
