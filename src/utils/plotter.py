@@ -21,7 +21,7 @@ def plot_error(iteration_distances):
 
 
 def plot_k_error(k_error):
-    plt.plot(list(range(2, len(k_error) + 2)), k_error, 'o-')
+    plt.plot(list(range(2, len(k_error) + 2)), k_error, 'o-', c='red')
     plt.ylabel('Sum of distances from each sample to its nearest cluster')
     plt.xlabel('K')
     plt.title('Sum of distances for each \'K\' value')
@@ -31,7 +31,7 @@ def plot_k_error(k_error):
 
 
 def plot_k_silhouette_score(s_scores):
-    plt.plot(list(range(2, len(s_scores) + 2)), s_scores, 'o-')
+    plt.plot(list(range(2, len(s_scores) + 2)), s_scores, 'o-', c='red')
     plt.ylabel('Silhouette score')
     plt.xlabel('K')
     plt.title('Silhouette score for each \'K\' value')
@@ -161,7 +161,7 @@ def plot_implemented_pca_3D(dataset, labels, plot_title=''):
     plt.show()
 
 
-def plot_tsne_2D(dataset, labels, plot_title='', perplexity=30, learning_rate=200, n_iter=1000, random_state=0):
+def plot_tsne_2D(dataset, labels, plot_title='', perplexity=30, learning_rate=200, n_iter=1000, random_state=None):
     tsne = TSNE(n_components=2, verbose=1, perplexity=perplexity,
                 learning_rate=learning_rate, n_iter=n_iter,
                 random_state=random_state)
@@ -172,12 +172,12 @@ def plot_tsne_2D(dataset, labels, plot_title='', perplexity=30, learning_rate=20
     plt.legend(title='Cluster', loc='best', prop={'size': 6})
     plt.title(plot_title)
     #TODO After usage --> Delete these lines
-    # plt.tight_layout()
-    # plt.savefig(plot_title.replace(" ", "") + '.png')
+    plt.tight_layout()
+    plt.savefig('pictures/'+plot_title.replace(" ", "") + '.png')
     plt.show()
 
 
-def plot_tsne_3D(dataset, labels, plot_title='', perplexity=30, learning_rate=200, n_iter=1000, random_state=0):
+def plot_tsne_3D(dataset, labels, plot_title='', perplexity=30, learning_rate=200, n_iter=1000, random_state=None):
     tsne = TSNE(n_components=3, verbose=1, perplexity=perplexity,
                 learning_rate=learning_rate, n_iter=n_iter,
                 random_state=random_state)

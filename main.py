@@ -7,9 +7,9 @@ from validators.metrics import compute_pca_and_tsne_on_reduced_dataset, compute_
 
 
 def test_and_plot_different_params_tsne(dataset, best_k):
-    perplexity = [10, 30, 50]
-    learning_rate = [100, 200, 400]
-    n_iter = [1000, 3000, 5000]
+    perplexity = [30]
+    learning_rate = [10, 1000]
+    n_iter = [1000]
 
     # reducing dataset dimensionality
     data = pca.apply_dimensionality_reduction(dataset,
@@ -93,6 +93,6 @@ if __name__ == '__main__':
                         plot_implemented_pca_3D=True, plot_sklearn_pca_2D=True,
                         plot_sklearn_pca_3D=True, plot_tsne_2D=True, plot_tsne_3D=True)
     """
-
-    best_k_reduced = [9, 3, 11]
+    #TODO Kevin--> run the funcion below for the three dataset --> N.B. save the picture after each run of a dataset
+    best_k_reduced = [9, 20, 11]
     test_and_plot_different_params_tsne(datasets_preprocessed[0], best_k_reduced[0])
