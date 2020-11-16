@@ -3,16 +3,6 @@ from sklearn.decomposition import PCA, IncrementalPCA
 import time
 import math
 
-"""
-class sklearn.decomposition.PCA(n_components=None, *, copy=True, whiten=False, svd_solver='auto',
-tol=0.0, iterated_power='auto', random_state=None)[source]
-
-
-def apply_dimensionality_reduction(dataset, num_components=None,
-                                   print_cov_matrix=False, print_eigen=False, print_selected_eigen=False,
-                                   plot_transformed_data=False, plot_original_data=False)
-"""
-
 
 def pca_sklearn(dataset, n_components):
     pca = PCA(n_components).fit(dataset)
