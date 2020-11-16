@@ -89,14 +89,20 @@ if __name__ == '__main__':
 
     # kmeans.get_best_k_for_all_datasets_reduced(datasets_preprocessed)
 
+    perplexity = [30, 50, 50]
+    learning_rate = [200, 200, 200]
+    n_iter = [3000, 3000, 3000]
     """
     compute_pca_and_tsne_on_reduced_dataset(datasets_preprocessed, targets_labels, plot_implemented_pca_2D=True,
                                             plot_implemented_pca_3D=True, plot_sklearn_pca_2D=True, 
-                                            plot_sklearn_pca_3D=True, plot_tsne_2D=True, plot_tsne_3D=True)
+                                            plot_sklearn_pca_3D=True, plot_tsne_2D=True, plot_tsne_3D=True,
+                                            tsne_n_iterations=n_iter, tsne_perplexity=perplexity, tsne_learning_rate=learning_rate)
+    
     
     compute_pca_and_tsne(datasets_preprocessed, plot_implemented_pca_2D=True,
                         plot_implemented_pca_3D=True, plot_sklearn_pca_2D=True,
-                        plot_sklearn_pca_3D=True, plot_tsne_2D=True, plot_tsne_3D=True)
+                        plot_sklearn_pca_3D=True, plot_tsne_2D=True, plot_tsne_3D=True,
+                        tsne_n_iterations=n_iter, tsne_perplexity=perplexity, tsne_learning_rate=learning_rate)
     """
 
     # best_k_reduced = [9, 20, 11]

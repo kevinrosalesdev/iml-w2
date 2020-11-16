@@ -27,7 +27,7 @@ def compute_pca_and_tsne_on_reduced_dataset(datasets, target_labels=None, plot_i
                                                   )
         datasets_reduced.append(data[0])
     best_k_reduced = [9, 20, 11]
-    plot_pca_and_tsne(datasets_reduced, best_k_reduced, target_labels, plot_implemented_pca_2D,
+    plot_pca_and_tsne(datasets_reduced, best_k_reduced, target_labels, plot_implemented_pca_2D=plot_implemented_pca_2D,
                       plot_implemented_pca_3D=plot_implemented_pca_3D, plot_sklean_pca_2D=plot_sklearn_pca_2D,
                       plot_sklearn_pca_3D=plot_sklearn_pca_3D, plot_tsne_2D=plot_tsne_2D, plot_tsne_3D=plot_tsne_3D,
                       tsne_n_iterations=tsne_n_iterations, tsne_learning_rate=tsne_learning_rate,
@@ -101,7 +101,7 @@ def plot_pca_and_tsne(datasets, best_k, target_labels=None, plot_implemented_pca
             plotter.plot_tsne_2D(datasets[index], pred_labels,
                                  plot_title=f"t-SNE - {dataset_names[index]} - K={best_k[index]}",
                                  perplexity=perplexity,
-                                 learning_rate=learning_rate, n_iter=n_iterations, random_state=0)
+                                 learning_rate=learning_rate, n_iter=n_iterations, random_state=None)
             toc = time.time()
             print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s")
 
@@ -110,6 +110,6 @@ def plot_pca_and_tsne(datasets, best_k, target_labels=None, plot_implemented_pca
             plotter.plot_tsne_3D(datasets[index], pred_labels,
                                  plot_title=f"t-SNE - {dataset_names[index]} - K={best_k[index]}",
                                  perplexity=perplexity,
-                                 learning_rate=learning_rate, n_iter=n_iterations, random_state=0)
+                                 learning_rate=learning_rate, n_iter=n_iterations, random_state=None)
             toc = time.time()
             print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s")
