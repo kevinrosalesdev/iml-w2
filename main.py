@@ -7,6 +7,7 @@ from validators.metrics import compute_pca_and_tsne_on_reduced_dataset, compute_
 
 
 def test_and_plot_different_params_tsne(dataset, best_k):
+    # test on different parameters of t-SNE
     perplexity = [10, 30, 50]
     learning_rate = [10, 200, 1000]
     n_iter = [1000, 3000, 5000]
@@ -31,81 +32,57 @@ def test_and_plot_different_params_tsne(dataset, best_k):
                 title = f"N° iter. = {n_it}, Learn. Rate = {lr}, Perp. = {per}"
                 plotter.plot_tsne_2D(data[0], pred_labels, plot_title=title, perplexity=per,
                                      learning_rate=lr, n_iter=n_it, random_state=0)
-    """
-    DESCRIPTION OF THE PARAMETERS
-    TNSE (
-     n_components: Any = 2,
-     perplexity: Any = 30.0,
-     # The perplexity is related to the number of nearest neighbors that is used in other manifold learning algorithms. 
-     # Larger datasets usually require a larger perplexity. 
-     # Consider selecting a value between 5 and 50. Different values can result in significanlty different results.
-     
-     early_exaggeration: Any = 12.0, 
-     # If the cost function increases during initial optimization, 
-     # the early exaggeration factor or the learning rate might be too high
-     
-     learning_rate: Any = 200.0, #in the range [10.0, 1000.0]
-     # If the learning rate is too high, the data may look like a ‘ball’ with any point approximately 
-     # equidistant from its nearest neighbours. If the learning rate is too low, most points 
-     # may look compressed in a dense cloud with few outliers. If the cost function gets stuck in a bad local minimum 
-     # increasing the learning rate may help
-     
-     n_iter: Any = 1000, #Should be at least 250
-     n_iter_without_progress: Any = 300, # 50 by 50 
-     min_grad_norm: Any = 1e-7,
-     metric: Any = "euclidean",
-     init: Any = "random",
-     verbose: Any = 0,
-     random_state: Any = None,
-     # Determines the random number generator. Pass an int for reproducible results across multiple function calls. 
-     # Note that different initializations might result in different local minima of the cost function
-     method: Any = 'barnes_hut', 
-     # By default the gradient calculation algorithm uses Barnes-Hut approximation running in O(NlogN) time. 
-     # method=’exact’ will run on the slower, but exact, algorithm in O(N^2) time.
-     angle: Any = 0.5,
-     # This method is not very sensitive to changes in this parameter in the range of 0.2 - 0.8. 
-     # Angle less than 0.2 has quickly increasing computation time and angle greater 0.8 has quickly increasing error.
-     n_jobs: Any = None) -> Optional[Any]
-    """
 
 
 if __name__ == '__main__':
-    # best_k_kmeans_first_assignment = [9, 19, 6]
-
+    # TODO dr.get_datasets() will return a list with the three datasets already preprocessed in order:
+    # Numeric (Pen-Based), Categorical (Kropt), Mixed(Hypothyroid).
     datasets_preprocessed = dr.get_datasets()
-    targets_labels = dr.get_datasets_target()
 
-    # plotter.plot_original_dataset(datasets_preprocessed[0])
-    # plotter.plot_original_dataset(datasets_preprocessed[1])
-    # plotter.plot_original_dataset(datasets_preprocessed[2])
+    # TODO if you find: "index_of_the_dataset" that means that you have to choose the index of the dataset
+    # TODO to plot the original dataset selecting the first 2/3 features. !uncomment the code below!
+    # plotter.plot_original_dataset(datasets_preprocessed[index_of_the_dataset])
 
-    # plotter.sn_plot_original_dataset(datasets_preprocessed[0])
-    # plotter.sn_plot_original_dataset(datasets_preprocessed[1])
-    # plotter.sn_plot_original_dataset(datasets_preprocessed[2]) This one crash! (too many features)
+    # TODO to do the pairplot of the original dataset. !uncomment the code below!
+    # N.B. with the last dataset the plot crash! (too many features)
+    # plotter.sn_plot_original_dataset(datasets_preprocessed[index_of_the_dataset])
 
+    # TODO to test our implementation of the PCA, plot two/three features of sklearn.PCA or sklearn.IPCA. !uncomment the code below!
     # pca.test_pca(datasets_preprocessed)
     # sklearn_pca_ipca.test_pca_sklearn(datasets_preprocessed)
     # sklearn_pca_ipca.test_ipca(datasets_preprocessed)
 
+    # TODO to get the plot of the best k for all datasets with previous reduction or not. !uncomment the code below!
+    # kmeans.get_best_k(datasets_preprocessed)
     # kmeans.get_best_k_for_all_datasets_reduced(datasets_preprocessed)
 
+    # These are the chosen values for the t-SNE function
     perplexity = [30, 50, 50]
     learning_rate = [200, 200, 200]
     n_iter = [3000, 3000, 3000]
+
+    # TODO to plot PCA and t-SNE after clustering with K-Means (using the chosen optimal values) for all datasets after PCA reduction
     """
-    compute_pca_and_tsne_on_reduced_dataset(datasets_preprocessed, targets_labels, plot_implemented_pca_2D=True,
+    compute_pca_and_tsne_on_reduced_dataset(datasets_preprocessed, None, plot_implemented_pca_2D=True,
                                             plot_implemented_pca_3D=True, plot_sklearn_pca_2D=True, 
                                             plot_sklearn_pca_3D=True, plot_tsne_2D=True, plot_tsne_3D=True,
-                                            tsne_n_iterations=n_iter, tsne_perplexity=perplexity, tsne_learning_rate=learning_rate)
+                                            tsne_n_iterations=n_iter, tsne_perplexity=perplexity, 
+                                            tsne_learning_rate=learning_rate)
+
+    """
     
-    
+    # TODO to plot PCA and t-SNE after clustering with K-Means (using the chosen optimal values) for all datasets without PCA reduction
+    """
     compute_pca_and_tsne(datasets_preprocessed, plot_implemented_pca_2D=True,
                         plot_implemented_pca_3D=True, plot_sklearn_pca_2D=True,
                         plot_sklearn_pca_3D=True, plot_tsne_2D=True, plot_tsne_3D=True,
-                        tsne_n_iterations=n_iter, tsne_perplexity=perplexity, tsne_learning_rate=learning_rate)
+                        tsne_n_iterations=n_iter, tsne_perplexity=perplexity, 
+                        tsne_learning_rate=learning_rate)
     """
 
-    # best_k_reduced = [9, 20, 11]
+    best_k_reduced = [9, 20, 11]
+    # TODO for running the test on the different values for the learning_rate, perplexity, n_iter of the t-SNE. !uncomment the code below!
+    # N.B. due to running time issues it's better to run one of these at the time
     # test_and_plot_different_params_tsne(datasets_preprocessed[0], best_k_reduced[0])
     # test_and_plot_different_params_tsne(datasets_preprocessed[1], best_k_reduced[1])
     # test_and_plot_different_params_tsne(datasets_preprocessed[2], best_k_reduced[2])
