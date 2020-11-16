@@ -7,9 +7,9 @@ from validators.metrics import compute_pca_and_tsne_on_reduced_dataset, compute_
 
 
 def test_and_plot_different_params_tsne(dataset, best_k):
-    perplexity = [30]
-    learning_rate = [10, 1000]
-    n_iter = [1000]
+    perplexity = [10, 30, 50]
+    learning_rate = [10, 200, 1000]
+    n_iter = [1000, 3000, 5000]
 
     # reducing dataset dimensionality
     data = pca.apply_dimensionality_reduction(dataset,
@@ -22,8 +22,8 @@ def test_and_plot_different_params_tsne(dataset, best_k):
                                               plot_original_data=False,
                                               )
     # getting predicted labels
-    pred_labels, __, _ = kmeans.apply_unsupervised_learning(data[0], best_k, max_iterations=30,
-                                                            use_default_seed=True, plot_distances=False)
+    pred_labels, _, _ = kmeans.apply_unsupervised_learning(data[0], best_k, max_iterations=30,
+                                                           use_default_seed=True, plot_distances=False)
 
     for n_it in n_iter:
         for lr in learning_rate:
@@ -32,7 +32,7 @@ def test_and_plot_different_params_tsne(dataset, best_k):
                 plotter.plot_tsne_2D(data[0], pred_labels, plot_title=title, perplexity=per,
                                      learning_rate=lr, n_iter=n_it, random_state=0)
     """
-    DESCRIPTION OF THE PARA
+    DESCRIPTION OF THE PARAMETERS
     TNSE (
      n_components: Any = 2,
      perplexity: Any = 30.0,
@@ -71,12 +71,17 @@ def test_and_plot_different_params_tsne(dataset, best_k):
 
 if __name__ == '__main__':
     # best_k_kmeans_first_assignment = [9, 19, 6]
+
     datasets_preprocessed = dr.get_datasets()
     targets_labels = dr.get_datasets_target()
 
     # plotter.plot_original_dataset(datasets_preprocessed[0])
     # plotter.plot_original_dataset(datasets_preprocessed[1])
     # plotter.plot_original_dataset(datasets_preprocessed[2])
+
+    # plotter.sn_plot_original_dataset(datasets_preprocessed[0])
+    # plotter.sn_plot_original_dataset(datasets_preprocessed[1])
+    # plotter.sn_plot_original_dataset(datasets_preprocessed[2]) This one crash! (too many features)
 
     # pca.test_pca(datasets_preprocessed)
     # sklearn_pca_ipca.test_pca_sklearn(datasets_preprocessed)
@@ -93,6 +98,8 @@ if __name__ == '__main__':
                         plot_implemented_pca_3D=True, plot_sklearn_pca_2D=True,
                         plot_sklearn_pca_3D=True, plot_tsne_2D=True, plot_tsne_3D=True)
     """
-    #TODO Kevin--> run the funcion below for the three dataset --> N.B. save the picture after each run of a dataset
-    best_k_reduced = [9, 20, 11]
-    test_and_plot_different_params_tsne(datasets_preprocessed[0], best_k_reduced[0])
+
+    # best_k_reduced = [9, 20, 11]
+    # test_and_plot_different_params_tsne(datasets_preprocessed[0], best_k_reduced[0])
+    # test_and_plot_different_params_tsne(datasets_preprocessed[1], best_k_reduced[1])
+    # test_and_plot_different_params_tsne(datasets_preprocessed[2], best_k_reduced[2])

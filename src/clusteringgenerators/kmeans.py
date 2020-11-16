@@ -9,7 +9,6 @@ from dimensionalityreductors import pca
 
 
 def apply_unsupervised_learning(dataset, k, max_iterations=30, use_default_seed=True, plot_distances=False):
-
     if use_default_seed:
         np.random.seed(0)
     if type(dataset) != np.ndarray:
@@ -52,7 +51,7 @@ def get_best_k(dataset, max_iterations=30, max_k=20, print_k=True, print_silhoue
     s_scores = []
     ch_score = []
     db_score = []
-    for index in range(2, max_k+1):
+    for index in range(2, max_k + 1):
         labels, k_error, _ = apply_unsupervised_learning(dataset, index, max_iterations, plot_distances=False)
         k_errors.append(k_error)
         if print_silhouette:
@@ -86,21 +85,21 @@ def get_best_k_for_all_datasets_reduced(datasets):
     number_of_k = [20, 25, 20]
     num_components = [None, None, None]
     for index in range(0, len(datasets)):
-        get_best_k_with_dataset_reduced(datasets[index], dataset_names[index], num_components[index], number_of_k[index])
+        get_best_k_with_dataset_reduced(datasets[index], dataset_names[index], num_components[index],
+                                        number_of_k[index])
 
 
 def get_best_k_with_dataset_reduced(dataset, dataset_name, num_components, number_of_k):
     print("Code running for", dataset_name, " - PCA num_components=", num_components)
     data = pca.apply_dimensionality_reduction(dataset,
-                                            num_components=None,
-                                            print_cov_matrix=True,
-                                            print_eigen=True,
-                                            print_selected_eigen=True,
-                                            print_variance_explained=True,
-                                            plot_transformed_data=False,
-                                            plot_original_data=False)
+                                              num_components=None,
+                                              print_cov_matrix=True,
+                                              print_eigen=True,
+                                              print_selected_eigen=True,
+                                              print_variance_explained=True,
+                                              plot_transformed_data=False,
+                                              plot_original_data=False)
     print("get_best_k for", str(number_of_k), "K")
     get_best_k(data[0], max_iterations=30, max_k=number_of_k,
-                   print_k=True, print_silhouette=True,
-                   print_calinski_harabasz=True, print_davies_bouldin=True)
-
+               print_k=True, print_silhouette=True,
+               print_calinski_harabasz=True, print_davies_bouldin=True)

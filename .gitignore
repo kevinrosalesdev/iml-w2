@@ -1,6 +1,9 @@
 # Datasets
 datasets/*_processed.csv
 
+# Pictures
+pictures/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

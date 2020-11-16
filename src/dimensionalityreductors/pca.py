@@ -4,15 +4,18 @@ import math
 import time
 
 
-def apply_dimensionality_reduction(dataset, num_components=None,
+def apply_dimensionality_reduction(dataset, num_components=None, print_original_matrix=False,
                                    print_cov_matrix=False, print_eigen=False, print_selected_eigen=False,
                                    print_variance_explained=False,
                                    plot_transformed_data=False, plot_original_data=False):
-
     if type(dataset) != np.ndarray:
         np_dataset = dataset.to_numpy()
     else:
         np_dataset = dataset
+
+    if print_original_matrix:
+        print("Original Matrix:\n" + str(np_dataset))
+
     d_mean_vector = np.mean(np_dataset, axis=0)
     np_dataset_mean = np.subtract(np_dataset, d_mean_vector)
     cov_matrix = np.cov(np_dataset_mean.T)
@@ -22,6 +25,9 @@ def apply_dimensionality_reduction(dataset, num_components=None,
 
     # The eigenvalues are not necessarily ordered by default.
     eigenvalues, eigenvectors = np.linalg.eig(cov_matrix)
+    ordered_idx = eigenvalues.argsort()[::-1]
+    eigenvalues = eigenvalues[ordered_idx]
+    eigenvectors = eigenvectors[:, ordered_idx]
 
     # Calculating the explained variance on each of components
     variance_explained = [(eigenvalue / sum(eigenvalues)) * 100 for eigenvalue in eigenvalues]
@@ -40,14 +46,13 @@ def apply_dimensionality_reduction(dataset, num_components=None,
     if num_components is None:
         num_components = np.where(eigenvalues > 1.)[0].shape[0]
         if num_components < 2:
-            print("[WARNING] Not enough eigenvalues are > 1, getting num of components where the cumulative"
+            print("[WARNING] Not enough eigenvalues are > 1, getting num of components where the cumulative "
                   "variance explained is 95%")
             num_components = np.where(cumulative_variance_explained < 95)[0].shape[0]
-            print("num_components cumulative=", str(num_components))
+            print("num_components cumulative:", str(num_components))
 
-    ordered_idx = eigenvalues.argsort()[::-1][:num_components]
-    eigenvalues = eigenvalues[ordered_idx]
-    eigenvectors = eigenvectors[:, ordered_idx]
+    eigenvalues = eigenvalues[:num_components]
+    eigenvectors = eigenvectors[:, :num_components]
 
     if print_selected_eigen:
         print("Selected eigenvalues (num_components = " + str(num_components) + "):\n" + str(eigenvalues))
@@ -61,7 +66,7 @@ def apply_dimensionality_reduction(dataset, num_components=None,
     original_data = np.add(np.matmul(eigenvectors, transformed_data.T).T, d_mean_vector)
 
     if plot_original_data:
-        plotter.plot_two_features(original_data[:, 0], original_data[:, 1])
+        plotter.plot_original_dataset(original_data)
 
     return [transformed_data, original_data]
 
@@ -70,13 +75,14 @@ def test_pca(datasets):
     print("Applying PCA to Numerical Dataset: Pen-based...")
     tic = time.time()
     apply_dimensionality_reduction(datasets[0],
-                                       num_components=2,
-                                       print_cov_matrix=True,
-                                       print_eigen=True,
-                                       print_selected_eigen=True,
-                                       print_variance_explained=True,
-                                       plot_transformed_data=True,
-                                       plot_original_data=True)
+                                   num_components=2,
+                                   print_original_matrix=True,
+                                   print_cov_matrix=True,
+                                   print_eigen=True,
+                                   print_selected_eigen=True,
+                                   print_variance_explained=True,
+                                   plot_transformed_data=True,
+                                   plot_original_data=True)
     toc = time.time()
     print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s "
           f"{(math.trunc((toc - tic) * 1000) % 1000)}ms")
@@ -84,13 +90,14 @@ def test_pca(datasets):
     print("Applying PCA to Numerical Dataset: Kropt...")
     tic = time.time()
     apply_dimensionality_reduction(datasets[1],
-                                       num_components=2,
-                                       print_cov_matrix=True,
-                                       print_eigen=True,
-                                       print_selected_eigen=True,
-                                       print_variance_explained=True,
-                                       plot_transformed_data=True,
-                                       plot_original_data=True)
+                                   num_components=2,
+                                   print_original_matrix=True,
+                                   print_cov_matrix=True,
+                                   print_eigen=True,
+                                   print_selected_eigen=True,
+                                   print_variance_explained=True,
+                                   plot_transformed_data=True,
+                                   plot_original_data=True)
     toc = time.time()
     print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s "
           f"{(math.trunc((toc - tic) * 1000) % 1000)}ms")
@@ -98,13 +105,14 @@ def test_pca(datasets):
     print("Applying PCA to Numerical Dataset: Hypothyroid...")
     tic = time.time()
     apply_dimensionality_reduction(datasets[2],
-                                       num_components=2,
-                                       print_cov_matrix=True,
-                                       print_eigen=True,
-                                       print_selected_eigen=True,
-                                       print_variance_explained=True,
-                                       plot_transformed_data=True,
-                                       plot_original_data=True)
+                                   num_components=2,
+                                   print_original_matrix=True,
+                                   print_cov_matrix=True,
+                                   print_eigen=True,
+                                   print_selected_eigen=True,
+                                   print_variance_explained=True,
+                                   plot_transformed_data=True,
+                                   plot_original_data=True)
     toc = time.time()
     print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s "
           f"{(math.trunc((toc - tic) * 1000) % 1000)}ms")

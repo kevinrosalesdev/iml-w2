@@ -1,14 +1,20 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sn
+import numpy as np
 
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 from dimensionalityreductors import pca
 
-
 # External Metric
 from sklearn.metrics import confusion_matrix
+
+
+def sn_plot_original_dataset(dataset):
+    sn.set_theme(style="ticks")
+    sn.pairplot(dataset)
+    plt.show()
 
 
 def plot_error(iteration_distances):
@@ -171,9 +177,8 @@ def plot_tsne_2D(dataset, labels, plot_title='', perplexity=30, learning_rate=20
     sn.lmplot(x="T-SNE1", y="T-SNE2", data=df_2D, fit_reg=False, hue='Cluster', legend=False, scatter_kws={"s": 1})
     plt.legend(title='Cluster', loc='best', prop={'size': 6})
     plt.title(plot_title)
-    #TODO After usage --> Delete these lines
-    plt.tight_layout()
-    plt.savefig('pictures/'+plot_title.replace(" ", "") + '.png')
+    # plt.tight_layout()
+    # plt.savefig('pictures/'+plot_title.replace(" ", "") + '.png')
     plt.show()
 
 
@@ -217,6 +222,9 @@ def plot_three_features(feature_1, feature_2, feature_3, title='Plot of three fe
 
 
 def plot_original_dataset(dataset):
-    np_dataset = dataset.to_numpy()
+    if type(dataset) != np.ndarray:
+        np_dataset = dataset.to_numpy()
+    else:
+        np_dataset = dataset
     plot_two_features(np_dataset[:, 0], np_dataset[:, 1])
     plot_three_features(np_dataset[:, 0], np_dataset[:, 1], np_dataset[:, 2])

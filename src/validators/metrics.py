@@ -64,16 +64,16 @@ def plot_pca_and_tsne(datasets, best_k, target_labels=None, plot_implemented_pca
         print("Calinski-Harabasz score", calinski_harabasz_score(datasets[index], pred_labels))
         print("Davies Bouldin score", davies_bouldin_score(datasets[index], pred_labels))
 
-        if target_labels != None:
+        if target_labels is not None:
             plotter.plot_confusion_matrix(target_labels[index], pred_labels,
-                                      plot_title=f"{dataset_names[index]} - K={best_k[index]}",
-                                      is_real_k=False)
+                                          plot_title=f"{dataset_names[index]} - K={best_k[index]}",
+                                          is_real_k=False)
         if plot_implemented_pca_2D:
             plotter.plot_implemented_pca_2D(datasets[index], pred_labels,
-                                    plot_title=f"Implemented PCA - {dataset_names[index]} - K={best_k[index]}")
+                                            plot_title=f"Implemented PCA - {dataset_names[index]} - K={best_k[index]}")
         if plot_implemented_pca_3D:
             plotter.plot_implemented_pca_3D(datasets[index], pred_labels,
-                                        plot_title=f"Implemented PCA - {dataset_names[index]} - K={best_k[index]}")
+                                            plot_title=f"Implemented PCA - {dataset_names[index]} - K={best_k[index]}")
 
         if plot_sklean_pca_2D:
             plotter.plot_sklearn_pca_2D(datasets[index], pred_labels,
@@ -91,7 +91,7 @@ def plot_pca_and_tsne(datasets, best_k, target_labels=None, plot_implemented_pca
             if tsne_learning_rate is None:
                 tsne_learning_rate = 200
             else:
-                lerning_rate = tsne_learning_rate[index]
+                learning_rate = tsne_learning_rate[index]
             if tsne_perplexity is None:
                 tsne_perplexity = 30
             else:
@@ -99,15 +99,17 @@ def plot_pca_and_tsne(datasets, best_k, target_labels=None, plot_implemented_pca
 
             tic = time.time()
             plotter.plot_tsne_2D(datasets[index], pred_labels,
-                                 plot_title=f"t-SNE - {dataset_names[index]} - K={best_k[index]}", perplexity=perplexity,
-                                 learning_rate=lerning_rate, n_iter=n_iterations, random_state=0)
+                                 plot_title=f"t-SNE - {dataset_names[index]} - K={best_k[index]}",
+                                 perplexity=perplexity,
+                                 learning_rate=learning_rate, n_iter=n_iterations, random_state=0)
             toc = time.time()
             print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s")
 
         if plot_tsne_3D:
             tic = time.time()
             plotter.plot_tsne_3D(datasets[index], pred_labels,
-                                 plot_title=f"t-SNE - {dataset_names[index]} - K={best_k[index]}", perplexity=perplexity,
-                                 learning_rate=lerning_rate, n_iter=n_iterations, random_state=0)
+                                 plot_title=f"t-SNE - {dataset_names[index]} - K={best_k[index]}",
+                                 perplexity=perplexity,
+                                 learning_rate=learning_rate, n_iter=n_iterations, random_state=0)
             toc = time.time()
             print(f"execution time: {math.trunc((toc - tic) / 60)}m {math.trunc((toc - tic) % 60)}s")
