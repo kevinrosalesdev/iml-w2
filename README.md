@@ -1,6 +1,6 @@
 # Introduction to Machine Learning - Work 2
 
-Implementation of PCA and study of its impact as a dimensionality reduction technique on k-Means algorithm. t-SNE and IncrementalPCA is also used for visualization purposes.
+Implementation of PCA and study of its impact as a dimensionality reduction technique on k-Means algorithm. t-SNE and IncrementalPCA are also used for visualization purposes.
 
 ## Datasets
 
